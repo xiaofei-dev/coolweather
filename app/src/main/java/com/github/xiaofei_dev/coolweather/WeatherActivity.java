@@ -87,10 +87,11 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText = (TextView) findViewById(R.id.comfort_text);
         carWashText = (TextView) findViewById(R.id.car_wash_text);
         sportText = (TextView) findViewById(R.id.sport_text);
-        //swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        //swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-        //drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //navButton = (Button) findViewById(R.id.nav_button);
+        //下拉刷新天气信息
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navButton = (Button) findViewById(R.id.nav_button);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         final String weatherId;
@@ -105,7 +106,8 @@ public class WeatherActivity extends AppCompatActivity {
             weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(weatherId);
         }
-        /*swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        //设置下拉刷新逻辑
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 requestWeather(weatherId);
@@ -114,9 +116,10 @@ public class WeatherActivity extends AppCompatActivity {
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //打开导航抽屉
                 drawerLayout.openDrawer(GravityCompat.START);
             }
-        });*/
+        });
         String bingPic = prefs.getString("bing_pic", null);
         if (bingPic != null) {
             Glide.with(this).load(bingPic).into(bingPicImg);
@@ -149,7 +152,8 @@ public class WeatherActivity extends AppCompatActivity {
                             Toast.makeText(WeatherActivity.this, "获取天气信息失败",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        //swipeRefresh.setRefreshing(false);
+                        //隐藏下拉刷新条
+                        swipeRefresh.setRefreshing(false);
                     }
                 });
             }
@@ -162,7 +166,8 @@ public class WeatherActivity extends AppCompatActivity {
                     public void run() {
                         Toast.makeText(WeatherActivity.this, "获取天气信息失败",
                                 Toast.LENGTH_SHORT).show();
-                        //swipeRefresh.setRefreshing(false);
+                        //隐藏下拉刷新条
+                        swipeRefresh.setRefreshing(false);
                     }
                 });
             }
